@@ -1,7 +1,7 @@
 Summary: Lightweight library to easily extract data from zip files
 Name: zziplib
 Version: 0.13.62
-Release: 3%{?dist}
+Release: 5%{?dist}
 License: LGPLv2+ or MPLv1.1
 Group: Applications/Archiving
 URL: http://zziplib.sourceforge.net/
@@ -100,6 +100,12 @@ install -p -m 0644 _config.h %{buildroot}%{_includedir}/zzip/_config.h
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.13.62-5
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.13.62-4
+- Mass rebuild 2013-12-27
+
 * Thu Jul 4 2013 Michal Luscon <mluscon@redhat.com> 0.13.62-3
 - Fix source address
 
