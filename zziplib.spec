@@ -1,12 +1,16 @@
 Summary: Lightweight library to easily extract data from zip files
 Name: zziplib
 Version: 0.13.62
-Release: 5%{?dist}
+Release: 9%{?dist}
 License: LGPLv2+ or MPLv1.1
 Group: Applications/Archiving
 URL: http://zziplib.sourceforge.net/
 Source: http://switch.dl.sourceforge.net/project/zziplib/zziplib13/%{version}/zziplib-%{version}.tar.bz2
 Patch0: zziplib-0.13.59-multilib.patch
+Patch1: 0001-fix-CVE-2018-7725.patch
+Patch2: 0001-fix-CVE-2018-7726.patch
+Patch3: 0001-fix-CVE-2018-7727.patch
+
 BuildRequires: perl
 BuildRequires: python
 BuildRequires: zip
@@ -59,6 +63,9 @@ zziplib library.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 # Save the common patched _config.h file to overwrite the generated one
 cp -a zzip/_config.h _config.h
 
@@ -100,6 +107,24 @@ install -p -m 0644 _config.h %{buildroot}%{_includedir}/zzip/_config.h
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jun 20 2018 Jakub Martisko <jamartis@redhat.com> - 0.13.62-9
+- Fix covscan warning
+- "Variable "file" going out of scope leaks the storage it points to."
+  has been introduced by the original version of 0001-fix-CVE-2018-7725.patch
+- Related: 1558596
+
+* Thu Jun 14 2018 Jakub Martisko <jamartis@redhat.com> - 0.13.62-8
+- Fix CVE-2018-7727
+- Resolves: 1558891
+
+* Wed Jun 13 2018 Jakub Martisko <jamartis@redhat.com> - 0.13.62-7
+- Fix CVE-2018-7726
+- Resolves: 1558623
+
+* Wed Jun 13 2018 Jakub Martisko <jamartis@redhat.com> - 0.13.62-6
+- Fix CVE-2018-7725
+- Resolves: 1558596
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.13.62-5
 - Mass rebuild 2014-01-24
 
