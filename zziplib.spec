@@ -1,22 +1,12 @@
 Summary: Lightweight library to easily extract data from zip files
 Name: zziplib
 Version: 0.13.62
-Release: 11%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+ or MPLv1.1
 Group: Applications/Archiving
 URL: http://zziplib.sourceforge.net/
 Source: http://switch.dl.sourceforge.net/project/zziplib/zziplib13/%{version}/zziplib-%{version}.tar.bz2
 Patch0: zziplib-0.13.59-multilib.patch
-Patch1: 0001-fix-CVE-2018-7725.patch
-Patch2: 0001-fix-CVE-2018-7726.patch
-Patch3: 0001-fix-CVE-2018-7727.patch
-
-Patch4: CVE-2018-16548.part1.patch
-Patch5: CVE-2018-16548.part2.patch
-Patch6: CVE-2018-16548.part3.patch
-
-Patch7: CVE-2018-6541.patch
-
 BuildRequires: perl
 BuildRequires: python
 BuildRequires: zip
@@ -69,15 +59,6 @@ zziplib library.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-
-%patch7 -p1
 # Save the common patched _config.h file to overwrite the generated one
 cp -a zzip/_config.h _config.h
 
@@ -119,42 +100,6 @@ install -p -m 0644 _config.h %{buildroot}%{_includedir}/zzip/_config.h
 %{_mandir}/man3/*
 
 %changelog
-* Thu Feb 28 2019 Jakub Martisko <jamartis@redhat.com> - 0.13.62-11
-- Fix CVE-2018-6541
-- Part of the original patch has already been applied in the past (CVE-2018-7726),
-  so the bug should not be reproducible in a way described in the github 
-  issue, even without this commit. Applying the rest of the original patch anyway.
-- https://github.com/gdraheim/zziplib/issues/16
-- Related: CVE-2018-6541
-
-* Thu Feb 28 2019 Jakub Martisko <jamartis@redhat.com> - 0.13.62-10
-- Fix CVE-2018-16548
-- Resolves: CVE-2018-16548
-
-* Wed Jun 20 2018 Jakub Martisko <jamartis@redhat.com> - 0.13.62-9
-- Fix covscan warning
-- "Variable "file" going out of scope leaks the storage it points to."
-  has been introduced by the original version of 0001-fix-CVE-2018-7725.patch
-- Related: 1558596
-
-* Thu Jun 14 2018 Jakub Martisko <jamartis@redhat.com> - 0.13.62-8
-- Fix CVE-2018-7727
-- Resolves: 1558891
-
-* Wed Jun 13 2018 Jakub Martisko <jamartis@redhat.com> - 0.13.62-7
-- Fix CVE-2018-7726
-- Resolves: 1558623
-
-* Wed Jun 13 2018 Jakub Martisko <jamartis@redhat.com> - 0.13.62-6
-- Fix CVE-2018-7725
-- Resolves: 1558596
-
-* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.13.62-5
-- Mass rebuild 2014-01-24
-
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.13.62-4
-- Mass rebuild 2013-12-27
-
 * Thu Jul 4 2013 Michal Luscon <mluscon@redhat.com> 0.13.62-3
 - Fix source address
 
